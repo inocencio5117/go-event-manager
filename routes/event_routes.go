@@ -12,5 +12,10 @@ func EventRoutes(r chi.Router) {
 		r.Get("/{id}", handlers.GetEventByID)
 		r.Put("/{id}", handlers.UpdateEvent)
 		r.Delete("/{id}", handlers.DeleteEvent)
+
+		r.Route("/{event_id}/attendees", func(r chi.Router) {
+			r.Post("/attendees", handlers.RegisterAttendeeToEvent)
+			r.Get("/attendees", handlers.ListAttendeesForEvent)
+		})
 	})
 }

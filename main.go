@@ -36,7 +36,6 @@ func run() error {
 	r.Get("/swagger/*", httpSwagger.WrapHandler)
 
 	routes.EventRoutes(r)
-	routes.AttendeeRoutes(r)
 
 	if err := http.ListenAndServe(":8080", r); err != nil {
 		return err
