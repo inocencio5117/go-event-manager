@@ -56,7 +56,13 @@ func GetAllEvents(w http.ResponseWriter, r *http.Request) {
 // @Failure		404	{string}	string	"Event not found"
 // @Router			/events/{id} [get]
 func GetEventByID(w http.ResponseWriter, r *http.Request) {
-	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
+	id, convErr := strconv.Atoi(chi.URLParam(r, "id"))
+
+	if convErr != nil {
+		http.Error(w, convErr.Error(), http.StatusBadRequest)
+		return
+	}
+
 	var event models.Event
 
 	if err := config.DB.First(&event, id).Error; err != nil {
@@ -77,7 +83,13 @@ func GetEventByID(w http.ResponseWriter, r *http.Request) {
 // @Failure		404		{string}	string	"Event not found"
 // @Router			/events/{id} [put]
 func UpdateEvent(w http.ResponseWriter, r *http.Request) {
-	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
+	id, convErr := strconv.Atoi(chi.URLParam(r, "id"))
+
+	if convErr != nil {
+		http.Error(w, convErr.Error(), http.StatusBadRequest)
+		return
+	}
+
 	var event models.Event
 
 	if err := render.DecodeJSON(r.Body, &event); err != nil {
@@ -102,7 +114,13 @@ func UpdateEvent(w http.ResponseWriter, r *http.Request) {
 // @Failure		404	{string}	string	"Event not found"
 // @Router			/events/{id} [delete]
 func DeleteEvent(w http.ResponseWriter, r *http.Request) {
-	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
+	id, convErr := strconv.Atoi(chi.URLParam(r, "id"))
+
+	if convErr != nil {
+		http.Error(w, convErr.Error(), http.StatusBadRequest)
+		return
+	}
+
 	var event models.Event
 
 	if err := config.DB.First(&event, id).Error; err != nil {

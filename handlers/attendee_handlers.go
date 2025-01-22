@@ -41,10 +41,10 @@ func RegisterAttendeeToEvent(w http.ResponseWriter, r *http.Request) {
 // @Router			/events/{event_id}/attendees [get]
 func ListAttendeesForEvent(w http.ResponseWriter, r *http.Request) {
 	var attendees []models.Attendee
-	eventId, err := strconv.Atoi(chi.URLParam(r, "event_id"))
+	eventId, convErr := strconv.Atoi(chi.URLParam(r, "event_id"))
 
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+	if convErr != nil {
+		http.Error(w, convErr.Error(), http.StatusBadRequest)
 		return
 	}
 
