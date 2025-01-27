@@ -30,3 +30,7 @@ func ConnectRedis() {
 
 	log.Println("Redis connected successfully!")
 }
+
+func PublishNotification(notificationChanel string, notificationMessage string) *redis.IntCmd {
+	return RedisClient.Publish(Ctx, notificationChanel, notificationMessage)
+}

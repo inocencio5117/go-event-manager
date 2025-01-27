@@ -129,5 +129,5 @@ func DeleteEvent(w http.ResponseWriter, r *http.Request) {
 	}
 
 	config.DB.Delete(&event)
-	w.WriteHeader(http.StatusOK)
+	render.Status(r, http.StatusNoContent)
 }
